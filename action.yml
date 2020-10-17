@@ -1,0 +1,20 @@
+name: 'Dynamic ReadME'
+
+description: ''
+
+author: 'varunsridharan'
+
+branding:
+  icon: 'airplay'
+  color: 'blue'
+
+inputs:
+  repositoryForked:
+    description: 'set to true to mirror all Repository Forked By You'
+
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.repositoryForked }}
