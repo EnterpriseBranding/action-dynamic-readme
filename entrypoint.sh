@@ -1,6 +1,5 @@
-#!/bin/bash
-
-set -eo
+#!/bin/sh
+set -eu
 
 if [ -z "$GITHUB_TOKEN" ]; then
   echo "🚩 Set the GITHUB_TOKEN env variable"
