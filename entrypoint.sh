@@ -16,4 +16,4 @@ if [ -z "$REPOSITORY_TOPICS" ]; then
   echo " "
 fi
 
-echo "Repository Topics : ${REPOSITORY_TOPICS}"
+php /dynamic-readme/app.php
