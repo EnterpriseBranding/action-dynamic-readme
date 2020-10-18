@@ -11,7 +11,7 @@ if [ -z "$REPOSITORY_TOPICS" ]; then
   echo "ℹ︎ Using https://github.com/varunsridharan/action-repository-meta Action To Fetch Meta Information"
   cd /
   git clone https://github.com/varunsridharan/action-repository-meta
-  cp action-repository-meta/app /gh-repo-meta/
+  cp -r action-repository-meta/app /gh-repo-meta/
   sh action-repository-meta/entrypoint.sh
   echo " "
 fi
