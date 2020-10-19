@@ -2,7 +2,7 @@
 FROM varunsridharan/php-github-actions-toolkit:0.3
 
 #RUN apk add git
-RUN /toolkit-scripts/git.sh
+RUN /github-toolkit/scripts/git.sh
 
 COPY entrypoint.sh /entrypoint.sh
 
