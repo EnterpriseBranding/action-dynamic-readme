@@ -1,4 +1,3 @@
-FROM varunsridharan/actions-alpine:latest
 FROM varunsridharan/php-github-actions-toolkit:latest
 
 COPY entrypoint.sh /entrypoint.sh
