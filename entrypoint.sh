@@ -16,4 +16,4 @@ if [ -z "$REPOSITORY_TOPICS" ]; then
   echo " "
 fi
 
-php /dynamic-readme/app.php
+php /gh-toolkit/index.php
