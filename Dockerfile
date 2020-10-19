@@ -1,8 +1,8 @@
 #FROM php:cli-alpine
 FROM varunsridharan/php-github-actions-toolkit:0.3
-ENV INSTALL_GIT="Yeeeeeeeea GO HEAD"
 
 #RUN apk add git
+RUN /toolkit-scripts/git.sh
 
 COPY entrypoint.sh /entrypoint.sh
 
