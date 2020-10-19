@@ -1,6 +1,7 @@
 #FROM php:cli-alpine
-ENV INSTALL_GIT="Yes"
 FROM varunsridharan/php-github-actions-toolkit:latest
+
+ENV INSTALL_GIT="Yes"
 
 #RUN apk add git
 RUN /github-toolkit/scripts/git.sh
