@@ -1,7 +1,6 @@
 #FROM php:cli-alpine
-ENV INSTALL_GIT="Yeeeeeeeea GO HEAD"
-
 FROM varunsridharan/php-github-actions-toolkit:0.3
+ENV INSTALL_GIT="Yeeeeeeeea GO HEAD"
 
 #RUN apk add git
 
