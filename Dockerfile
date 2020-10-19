@@ -1,5 +1,5 @@
 #FROM php:cli-alpine
-FROM varunsridharan/php-github-actions-toolkit:0.3
+FROM varunsridharan/php-github-actions-toolkit:latest
 
 #RUN apk add git
 RUN /github-toolkit/scripts/git.sh
