@@ -2,6 +2,8 @@
 set -e
 echo " "
 
+cd /usr/local/bin/ && ls -lah
+
 gitconfig "Hello World" "example@example.com"
 
 if [ -z "$GITHUB_TOKEN" ]; then
