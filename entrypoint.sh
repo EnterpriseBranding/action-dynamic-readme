@@ -2,6 +2,8 @@
 set -e
 echo " "
 
+gitconfig "Hello World" "example@example.com"
+
 if [ -z "$GITHUB_TOKEN" ]; then
   echo "🚩 Set the GITHUB_TOKEN env variable"
 fi
