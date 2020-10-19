@@ -1,4 +1,4 @@
-FROM varunsridharan/php-github-actions-toolkit:latest
+FROM varunsridharan/php-github-actions-toolkit:main
 
 COPY entrypoint.sh /entrypoint.sh
 
