@@ -3,9 +3,9 @@ set -e
 
 source /gh-toolkit/shell.sh
 
-gh_log_group_start('Testing Group')
-gh_log_warning('This is a simple warning data')
-gh_log_group_end()
+gh_log_group_start 'Testing Group'
+gh_log_warning 'This is a simple warning data'
+gh_log_group_end
 
 
 
