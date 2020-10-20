@@ -2,7 +2,7 @@
 set -e
 echo " "
 
-cd /usr/local/bin/ && ls -lah
+cd /gh-toolkit/ && ls -lah
 
 gitconfig "Hello World" "example@example.com"
 
