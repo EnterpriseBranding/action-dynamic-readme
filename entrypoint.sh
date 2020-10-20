@@ -1,8 +1,13 @@
 #!/bin/sh
 set -e
-echo " "
 
-cd /gh-toolkit/ && ls -lah
+source /gh-toolkit/shell.sh
+
+gh_log_group_start('Testing Group')
+gh_log_warning('This is a simple warning data')
+gh_log_group_end()
+
+
 
 gitconfig "Hello World" "example@example.com"
 
