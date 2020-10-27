@@ -36,7 +36,7 @@ class File_Handler {
 		if ( file_exists( WORK_DIR . $this->src ) ) {
 			return @file_get_contents( WORK_DIR . $this->src );
 		}
-		gh_log_error( sprintf( '%s File Not Found.' ) );
+		gh_log_error( sprintf( '%s File Not Found In Location', $this->src, WORK_DIR ) );
 		return false;
 	}
 
