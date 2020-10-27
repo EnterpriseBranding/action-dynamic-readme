@@ -62,13 +62,11 @@ class Update_Template {
 	 * @since {NEWVERSION}
 	 */
 	protected function run_mustache() {
+		global $vars;
 		$m             = new Mustache_Engine( array(
 			'delimiters' => '${{ }}',
 		) );
-		$this->content = $m->render( $this->content, array(
-			'GLOBALS' => $GLOBALS,
-			'ENV'     => $_ENV,
-		) );
+		$this->content = $m->render( $this->content, get_template_vars() );
 	}
 
 	/**
