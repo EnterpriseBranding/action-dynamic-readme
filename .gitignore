@@ -785,3 +785,16 @@ ASALocalRun/
 
 .all-contributorsrc
 .github/
+src/vendor/mustache/mustache/test
+src/vendor/mustache/mustache/.gitignore
+src/vendor/mustache/mustache/.gitmodules
+src/vendor/mustache/mustache/.php_cs
+src/vendor/mustache/mustache/.styleci.yml
+src/vendor/mustache/mustache/.travis.yml
+src/vendor/mustache/mustache/composer.json
+src/vendor/mustache/mustache/CONTRIBUTING.md
+src/vendor/mustache/mustache/LICENSE
+src/vendor/mustache/mustache/phpunit.xml.dist
+src/vendor/mustache/mustache/README.md
+src/vendor/mustache/mustache/vendor/
+src/vendor/mustache/mustache/bin
