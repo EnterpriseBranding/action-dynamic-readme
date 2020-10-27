@@ -1,4 +1,4 @@
-name: 'Dynamic ReadME'
+name: 'Dynamic Readme'
 
 description: ''
 
@@ -9,12 +9,12 @@ branding:
   color: 'blue'
 
 inputs:
-  repositoryForked:
-    description: 'set to true to mirror all Repository Forked By You'
+  files:
+    description: 'Enter Multiple by , seperated'
 
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.repositoryForked }}
+    - ${{ inputs.files }}
