@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 source /gh-toolkit/shell.sh
@@ -24,8 +24,6 @@ if [ -z "$REPOSITORY_SLUG" ]; then
 fi
 
 RAW_FILES=$(gh_input "FILES")
-echo "RAW Files"
-echo $RAW_FILES
 FILES=($RAW_FILES)
 
 GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
