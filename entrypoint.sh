@@ -31,6 +31,7 @@ GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.
 for FILE in "${FILES[@]}"; do
   FILE=($(echo $FILE | tr "=" "\n"))
   SRC_FILE=${FILE[0]}
+  gh_log_group_start "📓  ${SRC_FILE}"
   if [ ${FILE[1]+yes} ]; then
     DEST_FILE="${FILE[1]}"
   else
@@ -56,6 +57,7 @@ for FILE in "${FILES[@]}"; do
   else
     gh_log "  ✅ No Changes Are Done : ${SRC_FILE}"
   fi
+  gh_log_group_end
 done
 
 git push $GIT_URL
