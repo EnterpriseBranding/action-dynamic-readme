@@ -2,7 +2,7 @@
 require_once '/gh-toolkit/php.php';
 
 define( 'APP_PATH', __DIR__ . '/' );
-define( 'WORK_DIR', gh_env( 'GITHUB_WORKSPACE' ) );
+define( 'WORK_DIR', $GITHUB_WORKSPACE );
 define( 'TEMPLATE_REPO_PATH', '/dynamic-readme-tmp/repos/' );
 define( 'TEMPLATE_ENGINE', 'mustache' );
 
