@@ -24,10 +24,11 @@ if [ -z "$REPOSITORY_SLUG" ]; then
 fi
 
 RAW_FILES=$(gh_input "FILES")
-
+echo "RAW Files"
+echo $RAW_FILES
 FILES=($RAW_FILES)
 
-GIT_URL="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 for FILE in "${FILES[@]}"; do
   SRC_FILE=${FILES[0]}
