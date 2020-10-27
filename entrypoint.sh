@@ -29,9 +29,10 @@ FILES=($RAW_FILES)
 GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 for FILE in "${FILES[@]}"; do
-  SRC_FILE=${FILES[0]}
-  if [ ${FILES[1]+yes} ]; then
-    DEST_FILE="${FILES[1]}"
+  FILE=($(echo $FILE | tr "=" "\n"))
+  SRC_FILE=${FILE[0]}
+  if [ ${FILE[1]+yes} ]; then
+    DEST_FILE="${FILE[1]}"
   else
     DEST_FILE="${SRC_FILE}"
   fi
