@@ -16,5 +16,7 @@ function get_template_vars() {
 		'GITHUB_EVENT_NAME'       => isset( $_SERVER['GITHUB_EVENT_NAME'] ) ? $_SERVER['GITHUB_EVENT_NAME'] : false,
 		'GITHUB_WORKFLOW'         => isset( $_SERVER['GITHUB_WORKFLOW'] ) ? $_SERVER['GITHUB_WORKFLOW'] : false,
 		'ENV'                     => $_ENV,
+		'env'                     => $_ENV,
 	);
 }
+
