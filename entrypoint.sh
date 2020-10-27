@@ -13,7 +13,7 @@ if [ -z "$GITHUB_TOKEN" ]; then
   gh_log_error "🚩 Set the GITHUB_TOKEN env variable"
 fi
 
-if [ -z "$REPOSITORY_TOPICS" ]; then
+if [ -z "$REPOSITORY_SLUG" ]; then
   gh_log_warning "Repository Meta Information Not Found"
   gh_log "ℹ︎ Using https://github.com/varunsridharan/action-repository-meta Action To Fetch Meta Information"
   cd /
