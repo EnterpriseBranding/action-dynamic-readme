@@ -44,9 +44,12 @@ for FILE in "${FILES[@]}"; do
     mkdir -p $DEST_FOLDER_PATH
   fi
 
-  git add "${GIT_PATH}/${DEST_FILE}" -f
+  gh_log "SRC_FILE : ${SRC_FILE}"
+  gh_log "DEST_FILE : ${DEST_FILE}"
 
   php /dynamic-readme/app.php "${SRC_FILE}" "${DEST_FILE}"
+
+  git add "${GITHUB_WORKSPACE}/${DEST_FILE}" -f
 
   if [ "$(git status --porcelain)" != "" ]; then
     git commit -m "💬 - File Rebuilt | Github Action Runner : ${GITHUB_RUN_NUMBER}"
