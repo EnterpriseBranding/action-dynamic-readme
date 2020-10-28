@@ -37,7 +37,31 @@ class Update_Template {
 	 */
 	public function extract_included_templates() {
 		$matches = array();
-		preg_match_all( '/<!--(?P<templatefile>[\w\W]+)-->(?P<content>[\w\W]*)<!--\s?\1-->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
+
+		/**
+		 * @example
+		 * <!-- sponsor.md -->
+		 *
+		 * <!-- sponsor.md -->
+		 */ #preg_match_all( '/<!--(?P<templatefile>[\w\W]+)-->(?P<content>[\w\W]*)<!--\s?\1-->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
+
+		/**
+		 * @example
+		 * <!-- START sponsor.md -->
+		 * <!-- END sponsor.md -->
+		 */ #preg_match_all( '/<!-- START (?P<templatefile>[\w\W]+) -->(?P<content>[\w\W]*)<!-- END \1 -->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
+
+		/**
+		 * <!-- START sponsor.md -->
+		 * <!-- END sponsor.md -->
+		 *
+		 * OR
+		 *
+		 * <!-- start sponsor.md -->
+		 * <!-- end sponsor.md -->
+		 */
+		preg_match_all( '/<!-- (?:START|start) (?P<templatefile>[\w\W]+) -->(?P<content>[\w\W]*)<!-- (?:END|end) \1 -->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
+
 		/**
 		 * [0] -- > Full Content
 		 * [1] -- > Comment Key
@@ -83,11 +107,11 @@ class Update_Template {
 			$template_content = $template_content->update();
 			if ( false !== $template_content ) {
 				$_file   = preg_quote( $template['templatefile'], '/' );
-				$regex   = "/(<!--$_file-->)([\w\W]*)(<!--$_file-->)/mi";
+				$regex   = "/(<!-- (?:START|start) $_file -->)([\w\W]*)(<!-- (?:END|end) $_file -->)/mi";
 				$content = <<<CONTENT
 \$1
 $template_content
-\$1
+\$3
 CONTENT;
 				$content = preg_replace( $regex, $content, $this->content );
 				if ( ! empty( $content ) ) {
