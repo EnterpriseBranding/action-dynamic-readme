@@ -59,8 +59,20 @@ class Update_Template {
 		 *
 		 * <!-- start sponsor.md -->
 		 * <!-- end sponsor.md -->
+		 */ #preg_match_all( '/<!-- (?:START|start) (?P<templatefile>[\w\W]+) -->(?P<content>[\w\W]*)<!-- (?:END|end) \1 -->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
+
+		/**
+		 * <!-- START sponsor.md -->
+		 * <!-- END sponsor.md -->
+		 *
+		 * OR
+		 *
+		 * <!-- start sponsor.md -->
+		 * <!-- end sponsor.md -->
+		 *
+		 * also provides start & end keys
 		 */
-		preg_match_all( '/<!-- (?:START|start) (?P<templatefile>[\w\W]+) -->(?P<content>[\w\W]*)<!-- (?:END|end) \1 -->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
+		preg_match_all( '/(?P<startkey><!-- (?:START|start) (?P<templatefile>[\w\W]+) -->)(?P<content>[\w\W]*)(?P<endkey><!-- (?:END|end) \2 -->)/mi', $this->content, $matches, PREG_SET_ORDER, 0 );
 
 		/**
 		 * [0] -- > Full Content
@@ -106,16 +118,18 @@ class Update_Template {
 			$template_content = new Update_Template( $template_file->get_contents(), $template_file );
 			$template_content = $template_content->update();
 			if ( false !== $template_content ) {
-				$_file   = preg_quote( $template['templatefile'], '/' );
-				$regex   = "/(<!-- (?:START|start) $_file -->)([\w\W]*)(<!-- (?:END|end) $_file -->)/mi";
-				$content = <<<CONTENT
-\$1
+				$startkey     = preg_quote( $template['startkey'], '/' );
+				$endkey       = preg_quote( $template['endkey'], '/' );
+				$regex        = "/($startkey)([\w\W]*)($endkey)/";
+				$rand_replace = 'PLACEHOLDER_REPLACE:' . rand( 1, 1000 );
+				$new_content  = <<<CONTENT
+{$template['startkey']}
 $template_content
-\$3
+{$template['endkey']}
 CONTENT;
-				$content = preg_replace( $regex, $content, $this->content );
+				$content      = preg_replace( $regex, $rand_replace, $this->content );
 				if ( ! empty( $content ) ) {
-					$this->content = $content;
+					$this->content = str_replace( $rand_replace, $new_content, $content );
 				}
 			}
 		}
