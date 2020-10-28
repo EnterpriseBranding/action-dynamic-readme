@@ -72,7 +72,22 @@ class Update_Template {
 		 *
 		 * also provides start & end keys
 		 */
-		preg_match_all( '/(?P<startkey><!-- (?:START|start) (?P<templatefile>[\w\W]+) -->)(?P<content>[\w\W]*)(?P<endkey><!-- (?:END|end) \2 -->)/mi', $this->content, $matches, PREG_SET_ORDER, 0 );
+		#preg_match_all( '/(?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \2 -->)/mi', $this->content, $matches, PREG_SET_ORDER, 0 );
+
+		/**
+		 * <!-- START sponsor.md -->
+		 * <!-- END sponsor.md -->
+		 *
+		 * OR
+		 *
+		 * <!-- start sponsor.md -->
+		 * <!-- end sponsor.md -->
+		 *
+		 * OR
+		 * <!-- include sponsor.md -->
+		 * also provides start & end keys
+		 */
+		preg_match_all( '/(?:(?P<inline><!-- (?:include|INCLUDE) (?P<file>[\w\W].+) -->))|((?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \5 -->))/miJ', $this->content, $matches, PREG_SET_ORDER, 0 );
 
 		/**
 		 * [0] -- > Full Content
@@ -114,22 +129,27 @@ class Update_Template {
 		$templates       = $this->extract_included_templates();
 		$parent_template = ( method_exists( $this->parent_template, 'get_src' ) ) ? $this->parent_template->get_src() : false;
 		foreach ( $templates as $template ) {
-			$template_file    = new Template_File_Handler( $template['templatefile'], $parent_template );
+			$template_file    = new Template_File_Handler( $template['file'], $parent_template );
 			$template_content = new Update_Template( $template_file->get_contents(), $template_file );
 			$template_content = $template_content->update();
 			if ( false !== $template_content ) {
-				$startkey     = preg_quote( $template['startkey'], '/' );
-				$endkey       = preg_quote( $template['endkey'], '/' );
-				$regex        = "/($startkey)([\w\W]*)($endkey)/";
-				$rand_replace = 'PLACEHOLDER_REPLACE:' . rand( 1, 1000 );
-				$new_content  = <<<CONTENT
-{$template['startkey']}
+				if ( isset( $template['inline'] ) && ! empty( $template['inline'] ) ) {
+					$str_find    = $template['inline'];
+					$str_replace = $template_content;
+					$content     = $this->content;
+				} else {
+					$regex       = '/(' . preg_quote( $template['sec_start'], '/' ) . ')([\w\W]*)(' . preg_quote( $template['sec_end'], '/' ) . ')/';
+					$str_find    = 'PLACEHOLDER_REPLACE:' . rand( 1, 1000 );
+					$str_replace = <<<CONTENT
+{$template['sec_start']}
 $template_content
-{$template['endkey']}
+{$template['sec_end']}
 CONTENT;
-				$content      = preg_replace( $regex, $rand_replace, $this->content );
+					$content     = preg_replace( $regex, $str_find, $this->content );
+				}
+
 				if ( ! empty( $content ) ) {
-					$this->content = str_replace( $rand_replace, $new_content, $content );
+					$this->content = str_replace( $str_find, $str_replace, $content );
 				}
 			}
 		}
