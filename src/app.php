@@ -9,6 +9,7 @@ define( 'TEMPLATE_ENGINE', 'mustache' );
 
 require_once APP_PATH . 'vendor/autoload.php';
 require APP_PATH . 'vars.php';
+require APP_PATH . 'engine/mustache.php';
 require APP_PATH . 'class/class-file-handler.php';
 require APP_PATH . 'class/class-repo-cloner.php';
 require APP_PATH . 'class/class-template-file-handler.php';
