@@ -71,8 +71,7 @@ class Update_Template {
 		 * <!-- end sponsor.md -->
 		 *
 		 * also provides start & end keys
-		 */
-		#preg_match_all( '/(?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \2 -->)/mi', $this->content, $matches, PREG_SET_ORDER, 0 );
+		 */ #preg_match_all( '/(?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \2 -->)/mi', $this->content, $matches, PREG_SET_ORDER, 0 );
 
 		/**
 		 * <!-- START sponsor.md -->
@@ -100,8 +99,18 @@ class Update_Template {
 	public function update() {
 		$this->include_templates();
 
-		if ( 'mustache' === TEMPLATE_ENGINE ) {
-			$this->run_mustache();
+		$function = 'dynamic_readme_' . TEMPLATE_ENGINE . '_engine';
+		$default  = 'dynamic_readme_mustache_engine';
+
+		if ( function_exists( $function ) ) {
+			gh_log( 'Template Engine ' . TEMPLATE_ENGINE . ' Found' );
+			$this->content = call_user_func( $function, $this->content );
+		} elseif ( function_exists( $default ) ) {
+			gh_log_error( 'Template Engine ' . TEMPLATE_ENGINE . ' Not Found' );
+			gh_log_error( 'Using Default Template Engine {mustache}' );
+			$this->content = call_user_func( $function, $this->content );
+		} else {
+			gh_log_error( 'No Template Engine Found' );
 		}
 
 		return $this->content;
@@ -116,6 +125,10 @@ class Update_Template {
 		global $vars;
 		$m             = new Mustache_Engine( array(
 			'delimiters' => '${{ }}',
+			'escape'     => function ( $value ) {
+				#return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
+				return htmlspecialchars( $value, ENT_QUOTES, 'UTF-8' );
+			},
 		) );
 		$this->content = $m->render( $this->content, get_template_vars() );
 	}
