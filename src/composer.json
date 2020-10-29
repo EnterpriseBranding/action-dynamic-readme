@@ -1,4 +1,7 @@
 {
+  "scripts" : {
+	"build": "php vendor/mustache/mustache/bin/build_bootstrap.php && mv vendor/mustache/mustache/mustache.php engine/mustache-class.php"
+  },
   "require" : {
 	"mustache/mustache" : "*"
   }
