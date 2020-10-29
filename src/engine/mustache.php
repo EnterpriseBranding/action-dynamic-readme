@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/mustache-class.php';
 
 function dynamic_readme_mustache_engine( $content ) {
 	$m = new Mustache_Engine( array(
