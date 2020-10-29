@@ -785,6 +785,7 @@ ASALocalRun/
 
 .all-contributorsrc
 .github/
+src/vendor/
 src/vendor/mustache/mustache/test
 src/vendor/mustache/mustache/.gitignore
 src/vendor/mustache/mustache/.gitmodules
