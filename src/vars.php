@@ -1,7 +1,19 @@
 <?php
 
+use utilphp\util;
+
+function deep_arrayhandler( $value ) {
+	if ( util::is_serialized( $value ) ) {
+		$value = util::maybe_unserialize( $value );
+	} else {
+		$data  = json_decode( $value, true );
+		$value = ( JSON_ERROR_NONE === json_last_error() && is_array( $data ) ) ? $data : $value;
+	}
+	return ( is_array( $value ) ) ? util::array_map_deep( $value, 'deep_arrayhandler' ) : $value;
+}
+
 function get_template_vars() {
-	return array(
+	$data = array(
 		'GITHUB_API_URL'          => isset( $_SERVER['GITHUB_API_URL'] ) ? $_SERVER['GITHUB_API_URL'] : false,
 		'GITHUB_REPOSITORY_OWNER' => isset( $_SERVER['GITHUB_REPOSITORY_OWNER'] ) ? $_SERVER['GITHUB_REPOSITORY_OWNER'] : false,
 		'GITHUB_ACTIONS'          => isset( $_SERVER['GITHUB_ACTIONS'] ) ? $_SERVER['GITHUB_ACTIONS'] : false,
@@ -16,7 +28,11 @@ function get_template_vars() {
 		'GITHUB_EVENT_NAME'       => isset( $_SERVER['GITHUB_EVENT_NAME'] ) ? $_SERVER['GITHUB_EVENT_NAME'] : false,
 		'GITHUB_WORKFLOW'         => isset( $_SERVER['GITHUB_WORKFLOW'] ) ? $_SERVER['GITHUB_WORKFLOW'] : false,
 		'ENV'                     => $_ENV,
-		'env'                     => $_ENV,
 	);
+
+	$data = util::array_map_deep( $data, 'deep_arrayhandler' );
+
+	$data['env'] = $data['ENV'];
+	return $data;
 }
 
