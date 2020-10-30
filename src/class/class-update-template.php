@@ -127,11 +127,12 @@ class Update_Template {
 		$parent_template = ( method_exists( $this->parent_template, 'get_src' ) ) ? $this->parent_template->get_src() : false;
 
 		foreach ( $templates as $template ) {
+			$template_file    = new Template_File_Handler( $template['file'], $parent_template );
 			gh_log( print_r( array(
 				$template,
+				'get_contents : ' . $template_file->get_contents(),
 				'parent_template : ' . $parent_template,
 			), true ) );
-			$template_file    = new Template_File_Handler( $template['file'], $parent_template );
 			$template_content = new Update_Template( $template_file->get_contents(), $template_file );
 			$template_content = $template_content->update();
 			if ( false !== $template_content ) {
