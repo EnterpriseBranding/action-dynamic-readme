@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 
-cp -r src/ /dynamic-readme/
+cp -r /action/src/ /dynamic-readme/
 chmod -R 777 /dynamic-readme/
