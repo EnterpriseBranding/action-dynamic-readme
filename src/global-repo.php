@@ -10,17 +10,20 @@ if ( ! empty( $global_template_repository ) ) {
 	gh_log( 'Global Repo : ' . $global_template_repository );
 
 	$matches = extract_src_informaton( $global_template_repository );
-	gh_log( print_r( $matches, true ) );
-	$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
-	$repo_dir      = $repo_instance->get_path();
-	$path          = ( isset( $matches['path'] ) && ! empty( $matches['path'] ) ) ? $matches['path'] : false;
+	$matches = ( isset( $matches[0] ) ) ? $matches[0] : array();
 
-	if ( ( ! empty( $path ) && is_dir( $repo_dir . $path ) ) || is_dir( $repo_instance->get_path() ) ) {
-		gh_log( 'Success' );
-		$content = ( ! empty( $path ) ) ? $repo_dir . $path : $repo_dir;
-		file_put_contents( APP_PATH . 'global-repo', $content );
-	} else {
-		gh_log_error( 'Unable To Fetch Global Template Repository !' );
+	if ( ! empty( $matches ) ) {
+		$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
+		$repo_dir      = $repo_instance->get_path();
+		$path          = ( isset( $matches['path'] ) && ! empty( $matches['path'] ) ) ? $matches['path'] : false;
+
+		if ( ( ! empty( $path ) && is_dir( $repo_dir . $path ) ) || is_dir( $repo_instance->get_path() ) ) {
+			gh_log( 'Success' );
+			$content = ( ! empty( $path ) ) ? $repo_dir . $path : $repo_dir;
+			file_put_contents( APP_PATH . 'global-repo', $content );
+		} else {
+			gh_log_error( 'Unable To Fetch Global Template Repository !' );
+		}
 	}
 
 	gh_log_group_end();
