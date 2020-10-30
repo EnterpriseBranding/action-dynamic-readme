@@ -30,8 +30,6 @@ FILES=($RAW_FILES)
 
 GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-gh_log ""
-
 php /dynamic-readme/global-repo.php
 
 gh_log ""
@@ -57,6 +55,7 @@ for FILE in "${FILES[@]}"; do
   gh_log "DEST_FILE : ${DEST_FILE}"
 
   php /dynamic-readme/app.php "${SRC_FILE}" "${DEST_FILE}"
+  gh_log ""
 
   git add "${GITHUB_WORKSPACE}/${DEST_FILE}" -f
 

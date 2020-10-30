@@ -27,6 +27,5 @@ if ( ! empty( $global_template_repository ) ) {
 	}
 
 	gh_log_group_end();
-	gh_log();
 }
 
