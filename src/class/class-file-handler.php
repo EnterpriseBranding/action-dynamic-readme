@@ -53,6 +53,6 @@ class File_Handler {
 	 * @return bool|string
 	 */
 	public function get_basedir() {
-		return WORK_DIR . $this->src ;
+		return WORK_DIR . $this->src;
 	}
 }
