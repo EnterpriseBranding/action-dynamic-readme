@@ -573,6 +573,9 @@ class Mustache_Compiler
                     );
                     break;
                 case Mustache_Tokenizer::T_COMMENT:
+					break;
+                case Mustache_Tokenizer::T_RAW_VAR:
+					$code .= '$buffer .= "'.$node['otag'].' '.$node['name'].' '.$node['ctag'].'"; ';
                     break;
                 case Mustache_Tokenizer::T_ESCAPED:
                 case Mustache_Tokenizer::T_UNESCAPED:
@@ -1685,6 +1688,7 @@ class Mustache_Tokenizer
     const T_INVERTED     = '^';
     const T_END_SECTION  = '/';
     const T_COMMENT      = '!';
+    const T_RAW_VAR      = '\\';
     const T_PARTIAL      = '>';
     const T_PARENT       = '<';
     const T_DELIM_CHANGE = '=';
@@ -1700,6 +1704,7 @@ class Mustache_Tokenizer
         self::T_INVERTED     => true,
         self::T_END_SECTION  => true,
         self::T_COMMENT      => true,
+        self::T_RAW_VAR      => true,
         self::T_PARTIAL      => true,
         self::T_PARENT       => true,
         self::T_DELIM_CHANGE => true,
