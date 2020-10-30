@@ -26,7 +26,10 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  #image: 'Dockerfile'
+  image: 'ghcr.io://varunsridharan/actions-alpine-php:latest'
+  pre-entrypoint: 'setup.sh'
+  entrypoint: 'entrypoint.sh'
   args:
     - ${{ inputs.files }}
     - ${{ inputs.delimiter }}
