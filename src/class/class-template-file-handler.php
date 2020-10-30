@@ -20,7 +20,7 @@ class Template_File_Handler extends File_Handler {
 		$src = trim( $src, ' ' );
 		parent::__construct( $src, false );
 		$this->parent_file = ( ! empty( $parent_file ) ) ? dirname( $parent_file ) . '/' : false;
-		$this->extract_src_details();
+		$this->src         = $this->extract_src_details();
 	}
 
 	/**
@@ -42,28 +42,40 @@ class Template_File_Handler extends File_Handler {
 		$matches = extract_src_informaton( $this->src );
 		$matches = ( isset( $matches[0] ) ) ? $matches[0] : array();
 
-		if ( empty( $matches ) ) {
-			#var_dump($this->parent_file . $this->src);
+		if ( empty( $matches ) || ( isset( $matches['branch'] ) && empty( $matches['branch'] ) ) ) {
+			/**
+			 * Checks for file inside the parent file's directory
+			 */
 			if ( ! empty( $this->parent_file ) && file_exists( $this->parent_file . $this->src ) ) {
-				$this->src = $this->parent_file . $this->src;
-			} elseif ( file_exists( WORK_DIR . $this->src ) ) {
-				$this->src = WORK_DIR . $this->src;
+				return $this->parent_file . $this->src;
 			}
-		} elseif ( isset( $matches['branch'] ) ) {
-			if ( empty( $matches['branch'] ) && ! empty( $this->parent_file ) && file_exists( $this->parent_file . $this->src ) ) {
-				$this->src = $this->parent_file . $this->src;
-			} elseif ( empty( $matches['branch'] ) && file_exists( WORK_DIR . $this->src ) ) {
-				$this->src = WORK_DIR . $this->src;
-			} else {
-				$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
-				if ( file_exists( $repo_instance->get_path() . $matches['path'] ) ) {
-					$this->src = $repo_instance->get_path() . $matches['path'];
-				} else {
-					gh_log_error( ' File Not Found ! class-template-file-handler.php#' . __LINE__ );
-					$this->src = false;
-				}
+
+			/**
+			 * Checks for file inside Current Repository
+			 */
+			if ( file_exists( WORK_DIR . $this->src ) ) {
+				return WORK_DIR . $this->src;
+			}
+
+			/**
+			 * Checks for file in global template repository
+			 */
+			if ( ! empty( GLOBAL_REPO_PATH ) && file_exists( GLOBAL_REPO_PATH . $this->src ) ) {
+				return GLOBAL_REPO_PATH . $this->src;
 			}
 		}
+
+		if ( isset( $matches['branch'] ) && ! empty( $matches['branch'] ) ) {
+			$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
+			if ( file_exists( $repo_instance->get_path() . $matches['path'] ) ) {
+				$this->src = $repo_instance->get_path() . $matches['path'];
+			} else {
+				gh_log_error( ' File Not Found ! class-template-file-handler.php#' . __LINE__ );
+				$this->src = false;
+			}
+		}
+
+		return $this->src;
 	}
 
 	/**
