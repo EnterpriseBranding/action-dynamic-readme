@@ -4,8 +4,8 @@ require_once '/gh-toolkit/php.php';
 define( 'APP_PATH', __DIR__ . '/' );
 define( 'WORK_DIR', $GITHUB_WORKSPACE );
 define( 'TEMPLATE_REPO_PATH', '/dynamic-readme-tmp/repos/' );
-define( 'TEMPLATE_ENGINE', 'mustache' );
-
+define( 'TEMPLATE_ENGINE',gh_input( 'TEMPLATE_ENGINE', '${{ }}' ) );
+define( 'TEMPLATE_DELIMITER', gh_input( 'DELIMITER', '${{ }}' ) );
 
 require_once APP_PATH . 'vendor/autoload.php';
 require APP_PATH . 'vars.php';
