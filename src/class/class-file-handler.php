@@ -23,7 +23,11 @@ class File_Handler {
 	 * @param bool $dest
 	 */
 	public function __construct( $src, $dest = false ) {
-		$this->src  = trim( $src, './' );
+		#$this->src  = trim( $src, './' );
+		$this->src = $src;
+		if ( false !== strpos( $this->src, './' ) ) {
+			$this->src = ltrim( $this->src, './' );
+		}
 		$this->dest = $dest;
 	}
 
