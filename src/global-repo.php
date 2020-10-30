@@ -7,7 +7,10 @@ $global_template_repository = gh_input( 'GLOBAL_TEMPLATE_REPOSITORY', false );
 
 if ( ! empty( $global_template_repository ) ) {
 	gh_log_group_start( 'Setting Up Global Template Repository' );
-	$matches       = extract_src_informaton( $global_template_repository );
+	gh_log( 'Global Repo : ' . $global_template_repository );
+
+	$matches = extract_src_informaton( $global_template_repository );
+	gh_log( print_r( $matches, true ) );
 	$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
 	$repo_dir      = $repo_instance->get_path();
 	$path          = ( isset( $matches['path'] ) && ! empty( $matches['path'] ) ) ? $matches['path'] : false;
