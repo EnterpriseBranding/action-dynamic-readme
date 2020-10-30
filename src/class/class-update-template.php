@@ -103,6 +103,11 @@ class Update_Template {
 		$default  = 'dynamic_readme_mustache_engine';
 
 		if ( function_exists( $function ) ) {
+			gh_log(' ');
+			gh_log( print_r( $this->content ) );
+			gh_log( print_r( $this->parent_template ) );
+			gh_log(' ');
+			gh_log(' ');
 			gh_log( 'Template Engine ' . TEMPLATE_ENGINE . ' Found' );
 			$this->content = call_user_func( $function, $this->content );
 		} elseif ( function_exists( $default ) ) {
@@ -116,22 +121,6 @@ class Update_Template {
 		return $this->content;
 	}
 
-	/**
-	 * Runs Generated Content With Mustache Template Engine
-	 *
-	 * @since {NEWVERSION}
-	 */
-	protected function run_mustache() {
-		global $vars;
-		$m             = new Mustache_Engine( array(
-			'delimiters' => '${{ }}',
-			'escape'     => function ( $value ) {
-				#return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
-				return htmlspecialchars( $value, ENT_QUOTES, 'UTF-8' );
-			},
-		) );
-		$this->content = $m->render( $this->content, get_template_vars() );
-	}
 
 	/**
 	 * Process Template Files.
