@@ -80,10 +80,10 @@ class Template_File_Handler extends File_Handler {
 		}
 
 		gh_log_error( 'Unable To Find File Any Where !! Please Check The File Location ' );
-		gh_log_error( array_filter( array(
+		gh_log_error( print_r( array_filter( array(
 			'Parent File : ' => $this->parent_file,
 			'Lookup File : ' => $this->src,
-		) ) );
+		) ), true ) );
 
 		return $this->src;
 	}
