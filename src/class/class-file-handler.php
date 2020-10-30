@@ -46,4 +46,13 @@ class File_Handler {
 	public function save( $content ) {
 		@file_put_contents( WORK_DIR . $this->dest, $content );
 	}
+
+	/**
+	 * Returns SRC
+	 *
+	 * @return bool|string
+	 */
+	public function get_basedir() {
+		return dirname( WORK_DIR . $this->src );
+	}
 }

@@ -14,5 +14,5 @@ $src  = ( isset( $argv[1] ) ) ? $argv[1] : false;
 $dest = ( isset( $argv[2] ) ) ? $argv[2] : false;
 
 $instance = new File_Handler( $src, $dest );
-$template = new Update_Template( $instance->get_contents() );
+$template = new Update_Template( $instance->get_contents(), $instance );
 $instance->save( $template->update() );
