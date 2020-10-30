@@ -28,7 +28,11 @@ FILES=($RAW_FILES)
 
 GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
+gh_log ""
+
 php /dynamic-readme/global-repo.php
+
+gh_log ""
 
 for FILE in "${FILES[@]}"; do
   FILE=($(echo $FILE | tr "=" "\n"))
@@ -61,5 +65,6 @@ for FILE in "${FILES[@]}"; do
   fi
   gh_log_group_end
 done
-
+gh_log ""
 git push $GIT_URL
+gh_log ""
