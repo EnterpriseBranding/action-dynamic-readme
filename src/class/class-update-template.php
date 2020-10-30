@@ -103,11 +103,6 @@ class Update_Template {
 		$default  = 'dynamic_readme_mustache_engine';
 
 		if ( function_exists( $function ) ) {
-			gh_log(' ');
-			gh_log( print_r( $this->content ) );
-			gh_log( print_r( $this->parent_template ) );
-			gh_log(' ');
-			gh_log(' ');
 			gh_log( 'Template Engine ' . TEMPLATE_ENGINE . ' Found' );
 			$this->content = call_user_func( $function, $this->content );
 		} elseif ( function_exists( $default ) ) {
@@ -130,7 +125,12 @@ class Update_Template {
 	protected function include_templates() {
 		$templates       = $this->extract_included_templates();
 		$parent_template = ( method_exists( $this->parent_template, 'get_src' ) ) ? $this->parent_template->get_src() : false;
+		gh_log(print_r( array(
+			'templates : ' .$templates,
+			'parent_template : ' . $parent_template,
+		) ));
 		foreach ( $templates as $template ) {
+
 			$template_file    = new Template_File_Handler( $template['file'], $parent_template );
 			$template_content = new Update_Template( $template_file->get_contents(), $template_file );
 			$template_content = $template_content->update();
