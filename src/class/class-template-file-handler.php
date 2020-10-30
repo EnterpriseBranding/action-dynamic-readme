@@ -68,10 +68,10 @@ class Template_File_Handler extends File_Handler {
 		if ( isset( $matches['branch'] ) && ! empty( $matches['branch'] ) ) {
 			$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
 			if ( file_exists( $repo_instance->get_path() . $matches['path'] ) ) {
-				$this->src = $repo_instance->get_path() . $matches['path'];
+				return $repo_instance->get_path() . $matches['path'];
 			} else {
 				gh_log_error( ' File Not Found ! class-template-file-handler.php#' . __LINE__ );
-				$this->src = false;
+				return false;
 			}
 		}
 
