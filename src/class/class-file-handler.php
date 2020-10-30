@@ -23,7 +23,7 @@ class File_Handler {
 	 * @param bool $dest
 	 */
 	public function __construct( $src, $dest = false ) {
-		$this->src  = rtrim( $src, './' );
+		$this->src  = trim( $src, './' );
 		$this->dest = $dest;
 	}
 
