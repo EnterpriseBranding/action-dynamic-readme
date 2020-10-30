@@ -28,8 +28,9 @@ runs:
   using: 'docker'
   #image: 'Dockerfile'
   image: 'docker://ghcr.io/varunsridharan/actions-alpine-php:latest'
-  pre-entrypoint: './setup.sh'
-  entrypoint: '/action/entrypoint.sh'
+  #pre-entrypoint: './setup.sh'
+  #entrypoint: '/action/entrypoint.sh'
+  entrypoint: 'entrypoint2.sh'
   args:
     - ${{ inputs.files }}
     - ${{ inputs.delimiter }}
