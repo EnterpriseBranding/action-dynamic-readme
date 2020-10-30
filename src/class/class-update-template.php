@@ -103,7 +103,7 @@ class Update_Template {
 		$default  = 'dynamic_readme_mustache_engine';
 
 		if ( function_exists( $function ) ) {
-			gh_log( 'Template Engine ' . TEMPLATE_ENGINE . ' Found' );
+			#gh_log( 'Template Engine ' . TEMPLATE_ENGINE . ' Found' );
 			$this->content = call_user_func( $function, $this->content );
 		} elseif ( function_exists( $default ) ) {
 			gh_log_error( 'Template Engine ' . TEMPLATE_ENGINE . ' Not Found' );
