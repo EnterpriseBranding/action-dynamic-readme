@@ -30,7 +30,7 @@ class Template_File_Handler extends File_Handler {
 	 * @since {NEWVERSION}
 	 */
 	public function get_contents() {
-		return ( ! empty( $this->src ) ) ? file_get_contents( $this->src ) : false;
+		return ( ! empty( $this->src ) && file_exists( $this->src ) ) ? file_get_contents( $this->src ) : false;
 	}
 
 	/**
