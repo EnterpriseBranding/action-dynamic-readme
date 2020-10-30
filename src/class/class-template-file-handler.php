@@ -21,6 +21,11 @@ class Template_File_Handler extends File_Handler {
 		parent::__construct( $src, false );
 		$this->parent_file = ( ! empty( $parent_file ) ) ? dirname( $parent_file ) . '/' : false;
 		$this->src         = $this->extract_src_details();
+		gh_log( array(
+			'raw_src'     => $src,
+			'new_src'     => $this->src,
+			'parent_file' => $parent_file,
+		) );
 	}
 
 	/**
@@ -41,8 +46,8 @@ class Template_File_Handler extends File_Handler {
 	protected function extract_src_details() {
 		$matches = extract_src_informaton( $this->src );
 		$matches = ( isset( $matches[0] ) ) ? $matches[0] : array();
-
-		if ( empty( $matches ) || ( isset( $matches['branch'] ) && empty( $matches['branch'] ) ) ) {
+		gh_log( print_r( $matches ) );
+		if ( empty( $matches ) || ( isset( $matches['branch'] ) && empty( $matches['branch'] ) ) || ( ! isset( $matches['branch'] ) ) ) {
 			/**
 			 * Checks for file inside the parent file's directory
 			 */
