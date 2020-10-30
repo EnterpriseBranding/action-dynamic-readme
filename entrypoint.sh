@@ -3,6 +3,8 @@ set -e
 
 source /gh-toolkit/shell.sh
 
+gh_log ""
+
 gitconfig "Github Action Dynamic Template"
 
 gh_validate_input "FILES" "FILES List is required"
