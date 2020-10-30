@@ -125,12 +125,12 @@ class Update_Template {
 	protected function include_templates() {
 		$templates       = $this->extract_included_templates();
 		$parent_template = ( method_exists( $this->parent_template, 'get_src' ) ) ? $this->parent_template->get_src() : false;
-		gh_log( print_r( array(
-			$templates,
-			'parent_template : ' . $parent_template,
-		), true ) );
-		foreach ( $templates as $template ) {
 
+		foreach ( $templates as $template ) {
+			gh_log( print_r( array(
+				$template,
+				'parent_template : ' . $parent_template,
+			), true ) );
 			$template_file    = new Template_File_Handler( $template['file'], $parent_template );
 			$template_content = new Update_Template( $template_file->get_contents(), $template_file );
 			$template_content = $template_content->update();
