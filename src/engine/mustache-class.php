@@ -575,7 +575,10 @@ class Mustache_Compiler
                 case Mustache_Tokenizer::T_COMMENT:
 					break;
                 case Mustache_Tokenizer::T_RAW_VAR:
-					$code .= '$buffer .= "'.$node['otag'].' '.$node['name'].' '.$node['ctag'].'"; ';
+					preg_match('/^[^(!^\s)a-zA-Z\d]/', $node['name'], $matches, PREG_OFFSET_CAPTURE, 0);
+					$key = (empty($matches)) ? ' '.trim($node['name'],' ') : trim($node['name'],' ');
+					$_code = '$buffer .= \''.$node['otag'].$key.' '.$node['ctag'].'\';';
+					$code .= $this->prepare($_code,$level);
                     break;
                 case Mustache_Tokenizer::T_ESCAPED:
                 case Mustache_Tokenizer::T_UNESCAPED:

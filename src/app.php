@@ -3,8 +3,6 @@ require_once __DIR__ . '/config.php';
 
 $global_template_repository = gh_input( 'GLOBAL_TEMPLATE_REPOSITORY', false );
 
-
-require_once APP_PATH . 'vendor/autoload.php';
 require APP_PATH . 'vars.php';
 require APP_PATH . 'engine/mustache.php';
 require APP_PATH . 'class/class-file-handler.php';
