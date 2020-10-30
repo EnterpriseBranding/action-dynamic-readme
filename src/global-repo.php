@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config.php';
 
+require APP_PATH . 'class/class-repo-cloner.php';
+
 $global_template_repository = gh_input( 'GLOBAL_TEMPLATE_REPOSITORY', false );
 
 if ( ! empty( $global_template_repository ) ) {
