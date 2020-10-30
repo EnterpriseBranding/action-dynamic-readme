@@ -1,14 +1,8 @@
 <?php
-require_once '/gh-toolkit/php.php';
+require_once __DIR__ . '/config.php';
 
-$DELIMITER = gh_input( 'DELIMITER', '${{ }}' );
-$DELIMITER = ( ! empty( $DELIMITER ) ) ? $DELIMITER : '${{ }}';
+$global_template_repository = gh_input( 'GLOBAL_TEMPLATE_REPOSITORY', false );
 
-define( 'APP_PATH', __DIR__ . '/' );
-define( 'WORK_DIR', $GITHUB_WORKSPACE );
-define( 'TEMPLATE_REPO_PATH', '/dynamic-readme-tmp/repos/' );
-define( 'TEMPLATE_ENGINE', gh_input( 'TEMPLATE_ENGINE', '${{ }}' ) );
-define( 'TEMPLATE_DELIMITER', $DELIMITER );
 
 require_once APP_PATH . 'vendor/autoload.php';
 require APP_PATH . 'vars.php';

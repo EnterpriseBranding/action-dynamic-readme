@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Repository_Cloner
  *
@@ -67,6 +68,9 @@ class Repository_Cloner {
 	 * @return string
 	 */
 	public function get_path() {
-		return TEMPLATE_REPO_PATH . $this->username . '/' . $this->repository . '/' . $this->branch;
+		if ( ! empty( $this->branch ) ) {
+			return TEMPLATE_REPO_PATH . $this->username . '/' . $this->repository . '/' . $this->branch . '/';
+		}
+		return TEMPLATE_REPO_PATH . $this->username . '/' . $this->repository . '/';
 	}
 }

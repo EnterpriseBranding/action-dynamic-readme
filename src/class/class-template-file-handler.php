@@ -39,8 +39,7 @@ class Template_File_Handler extends File_Handler {
 	 * @since {NEWVERSION}
 	 */
 	protected function extract_src_details() {
-		$regex = '/(?P<login>[A-z0-9_-]+)\/(?P<repo>[A-z0-9_-]+)(?P<branch>@[A-z0-9_-]+|)\/(?P<path>\w.+)/mi';
-		preg_match_all( $regex, $this->src, $matches, PREG_SET_ORDER, 0 );
+		$matches = extract_src_informaton( $this->src );
 		$matches = ( isset( $matches[0] ) ) ? $matches[0] : array();
 
 		if ( empty( $matches ) ) {
@@ -57,8 +56,8 @@ class Template_File_Handler extends File_Handler {
 				$this->src = WORK_DIR . $this->src;
 			} else {
 				$repo_instance = new Repository_Cloner( $matches['login'], $matches['repo'], $matches['branch'] );
-				if ( file_exists( $repo_instance->get_path() . '/' . $matches['path'] ) ) {
-					$this->src = $repo_instance->get_path() . '/' . $matches['path'];
+				if ( file_exists( $repo_instance->get_path() . $matches['path'] ) ) {
+					$this->src = $repo_instance->get_path() . $matches['path'];
 				} else {
 					gh_log_error( ' File Not Found ! class-template-file-handler.php#' . __LINE__ );
 					$this->src = false;
