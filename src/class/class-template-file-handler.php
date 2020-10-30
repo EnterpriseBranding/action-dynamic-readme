@@ -21,11 +21,13 @@ class Template_File_Handler extends File_Handler {
 		parent::__construct( $src, false );
 		$this->parent_file = ( ! empty( $parent_file ) ) ? dirname( $parent_file ) . '/' : false;
 		$this->src         = $this->extract_src_details();
-		gh_log( array(
-			'raw_src'     => $src,
-			'new_src'     => $this->src,
-			'parent_file' => $parent_file,
-		) );
+		gh_log( print_r( array(
+			'WORK_DIR'         => WORK_DIR,
+			'GLOBAL_REPO_PATH' => GLOBAL_REPO_PATH,
+			'raw_src'          => $src,
+			'new_src'          => $this->src,
+			'parent_file'      => $parent_file,
+		), true ) );
 	}
 
 	/**
