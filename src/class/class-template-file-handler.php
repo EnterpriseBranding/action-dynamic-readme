@@ -21,13 +21,13 @@ class Template_File_Handler extends File_Handler {
 		parent::__construct( $src, false );
 		$this->parent_file = ( ! empty( $parent_file ) ) ? dirname( $parent_file ) . '/' : false;
 		$this->src         = $this->extract_src_details();
-		gh_log( print_r( array(
+		gh_log( array(
 			'WORK_DIR'         => WORK_DIR,
 			'GLOBAL_REPO_PATH' => GLOBAL_REPO_PATH,
 			'raw_src'          => $src,
 			'new_src'          => $this->src,
 			'parent_file'      => $parent_file,
-		), true ) );
+		) );
 	}
 
 	/**
@@ -48,12 +48,13 @@ class Template_File_Handler extends File_Handler {
 	protected function extract_src_details() {
 		$matches = extract_src_informaton( $this->src );
 		$matches = ( isset( $matches[0] ) ) ? $matches[0] : array();
-		gh_log( print_r( $matches ) );
-		if ( empty( $matches ) || ( isset( $matches['branch'] ) && empty( $matches['branch'] ) ) || ( ! isset( $matches['branch'] ) ) ) {
+		gh_log( $matches );
+		if ( empty( $matches ) || ( isset( $matches['branch'] ) && empty( $matches['branch'] ) ) || ! isset( $matches['branch'] ) ) {
 			/**
 			 * Checks for file inside the parent file's directory
 			 */
 			if ( ! empty( $this->parent_file ) && file_exists( $this->parent_file . $this->src ) ) {
+				gh_log( 'File Found : ' . $this->parent_file . $this->src );
 				return $this->parent_file . $this->src;
 			}
 
@@ -61,6 +62,7 @@ class Template_File_Handler extends File_Handler {
 			 * Checks for file inside Current Repository
 			 */
 			if ( file_exists( WORK_DIR . $this->src ) ) {
+				gh_log( 'File Found : ' . WORK_DIR . $this->src );
 				return WORK_DIR . $this->src;
 			}
 
@@ -68,6 +70,7 @@ class Template_File_Handler extends File_Handler {
 			 * Checks for file in global template repository
 			 */
 			if ( ! empty( GLOBAL_REPO_PATH ) && file_exists( GLOBAL_REPO_PATH . $this->src ) ) {
+				gh_log( 'File Found : ' . GLOBAL_REPO_PATH . $this->src );
 				return GLOBAL_REPO_PATH . $this->src;
 			}
 		}
@@ -80,6 +83,9 @@ class Template_File_Handler extends File_Handler {
 				gh_log_error( ' File Not Found ! class-template-file-handler.php#' . __LINE__ );
 				return false;
 			}
+		} else {
+			gh_log( 'Unable to find file anywhere !!!!!!!!!!!!!!!' );
+			gh_log( $matches );
 		}
 
 		return $this->src;
