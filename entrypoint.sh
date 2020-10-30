@@ -28,6 +28,8 @@ FILES=($RAW_FILES)
 
 GIT_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
+php /dynamic-readme/global-repo.php
+
 for FILE in "${FILES[@]}"; do
   FILE=($(echo $FILE | tr "=" "\n"))
   SRC_FILE=${FILE[0]}
