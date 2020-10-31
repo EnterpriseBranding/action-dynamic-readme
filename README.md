@@ -3,7 +3,7 @@
 # Dynamic ReadMe - ***Github Action***
  Convert Static Readme into Dynamic Readme 
 
-## Why 🤔 ?
+## Motivation 🤔 ?
 As an open-source software developer I use GitHub Repositories extensively to store my projects. I maintain over 100 projects, of which, about 85% of them have standardised content for the README.md file. That being said, I am finding it increasingly tedious to add, update or remove content in the README.md files across all my repositories because of two main challenges:
 
 1. Templating of files: The information which is common to README.md files across all my repositories such as Sponsor, Contribute, Contact, etc., cannot be templated and inserted into the README.md files of all my projects / repositories.
