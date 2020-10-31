@@ -10,8 +10,12 @@ class Markdown_Handler {
 		if ( is_array( $key ) ) {
 			$value = ( isset( $key['markdown_value'] ) ) ? $key['markdown_value'] : false;
 			$key   = ( isset( $key['markdown'] ) ) ? $key['markdown'] : false;
+			if ( false === $value ) {
+				$key   = explode( ':', $key );
+				$value = ( isset( $value[1] ) ) ? $value[1] : false;
+				$key   = ( isset( $key[0] ) ) ? $key[0] : false;
+			}
 		}
-
 		$return = array();
 		switch ( $key ) {
 			case 'code':

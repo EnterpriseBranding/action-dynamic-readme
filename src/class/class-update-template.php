@@ -38,7 +38,10 @@ class Update_Template {
 	public function extract_included_templates() {
 		$matches = array();
 		#$re = '/(?P<inline><!--\s(?:INCLUDE|include)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)\s(?P<file>[\s\S]*?)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\5)\s(END|end)\s(\7)\s(\8)))/J';
-		$re = '/(?P<inline><!--\s(?:INCLUDE|include)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\8)\s(END|end)\s(\13)\s(\14)))/J';
+		#$re = '/(?P<inline><!--\s(?:INCLUDE|include)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\8)\s(END|end)\s(\13)\s(\14)))/J';
+		#$re = '/(?P<inline><!--\s(?:INCLUDE|include)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)(\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\8)\s(END|end)(\10)\s(\14)\s(\15)))/mJ';
+		#$re = '/(?P<inline><!--\s(?:INCLUDE|include)(?:\s(?:\[(?:(?P<markdown>\w.+)\:(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)(\s(?:\[(?:(?P<markdown>\w.+)\:(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\8)\s(END|end)(\10)\s(\14)\s(\15)))/mJ';
+		$re = '/(?P<inline><!--\s(?:INCLUDE|include)(\s\[(?P<markdown>.+)\]\s|\s)(?P<file>[\w\W].+)\s-->)|((?P<sec_start><!--\s(?:START|start)(\s\[(?P<markdown>.+)\]\s|\s)(?P<file>[\w\W].+)\s-->)(?:\n|)(?P<sec_content>[\s\S]*?)(?:\n|)(?P<sec_end><!--\s(?:END|end)\7\9\s-->))/mJ';
 		preg_match_all( $re, $this->content, $matches, PREG_SET_ORDER, 0 );
 
 		/**
@@ -95,7 +98,7 @@ class Update_Template {
 					$str_replace = $beforeafter['before'] . $template_content . $beforeafter['after'];
 					$content     = $this->content;
 				} else {
-					$regex       = '/(' . preg_quote( $template['sec_start'], '/' ) . ')([\w\W]*)(' . preg_quote( $template['sec_end'], '/' ) . ')/';
+					$regex       = '/(' . preg_quote( $template['sec_start'], '/' ) . ')(\n|)([\s\S]*?)(\n|)(' . preg_quote( $template['sec_end'], '/' ) . ')/';
 					$str_find    = 'PLACEHOLDER_REPLACE:' . rand( 1, 1000 );
 					$str_replace = <<<CONTENT
 {$template['sec_start']}
