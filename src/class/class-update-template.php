@@ -85,8 +85,42 @@ class Update_Template {
 		 * OR
 		 * <!-- include sponsor.md -->
 		 * also provides start & end keys
+		 */ #preg_match_all( '/(?:(?P<inline><!-- (?:include|INCLUDE) (?P<file>[\w\W].+) -->))|((?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \5 -->))/miJ', $this->content, $matches, PREG_SET_ORDER, 0 );
+		/**
+		 * @example Test Content
+		 * <!-- include ./parts/license.md -->
+		 *
+		 * <!-- include templates/file-includes/parts/feedback.md -->
+		 *
+		 * <!-- include .github/workflows/dynamic-template.yml -->
+		 *
+		 * <!-- include octocat/Spoon-Knife@master/README.md -->
+		 *
+		 * <!-- include octocat/Spoon-Knife/README.md -->
+		 *
+		 * <!-- include sponsor.md -->
+		 *
+		 *
+		 * <!-- START ./parts/license.md -->
+		 *
+		 * <!-- END ./parts/license.md -->
+		 *
+		 * <!-- start templates/file-includes/parts/feedback.md -->
+		 *
+		 * <!-- END templates/file-includes/parts/feedback.md -->
+		 *
+		 * <!-- START .github/workflows/dynamic-template.yml -->
+		 * <!-- end .github/workflows/dynamic-template.yml -->
+		 *
+		 * <!-- start octocat/Spoon-Knife@master/README.md -->
+		 * <!-- end octocat/Spoon-Knife@master/README.md -->
+		 *
+		 * <!-- START sponsor.md --><!-- END sponsor.md -->
+		 *
+		 * <!-- START sponsor.md --><!-- END sponsor.md -->
 		 */
-		preg_match_all( '/(?:(?P<inline><!-- (?:include|INCLUDE) (?P<file>[\w\W].+) -->))|((?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \5 -->))/miJ', $this->content, $matches, PREG_SET_ORDER, 0 );
+		$re = '/(?P<inline><!--\s(?:INCLUDE|include)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)\s(?P<file>[\s\S]*?)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\5)\s(END|end)\s(\7)\s(\8)))/J';
+		preg_match_all( $re, $this->content, $matches, PREG_SET_ORDER, 0 );
 
 		/**
 		 * [0] -- > Full Content
