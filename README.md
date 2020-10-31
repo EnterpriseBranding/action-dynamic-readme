@@ -22,8 +22,9 @@ To overcome this limitation, and help developers such as myself automate this te
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## :writing_hand: Syntax 
-> :warning: To avoid rendering File Includes in this section, we have used `\!`. Make sure to use only `!` to render the file include.
-> :warning: To avoid rendering Variables in this section, we added empty space after `$ `. Make sure to remove that space when using it
+> :warning: To avoid rendering File Includes / variables in this readme, we have used a [emptycharacter](https://emptycharacter.com/) after `$` & `<`.
+>
+> DO NOT COPY & PASTE THE BELOW TEXT it will not work properly. please do type it your self
 
 * Variables : `$‎{{ VARIABLE_NAME }}`
 * File Includes
@@ -105,8 +106,9 @@ Reusable Includes :
 >
 > :information_source: Even though **Reusable includes** and **Inline Includes** do the same work, they can come in handy when you are generating a template and saving it in the same file. It preserves the include comment which will be parsed again when re-generating the template, and the contents of the include will be updated accordingly.
 >
-> :warning: To avoid rendering File Includes in this section, we have used `\!`. Make sure to use only `!` to render the file include.
-
+> :warning: To avoid rendering File Includes / variables in this readme, we have used a [emptycharacter](https://emptycharacter.com/) after `$` & `<`.
+>
+> DO NOT COPY & PASTE THE BELOW TEXT it will not work properly. please do type it your self
 ---
 ### For live Demo Please Check [Demo Repository](https://github.com/varunsridharan/demo-dynamic-readme)
 ---
