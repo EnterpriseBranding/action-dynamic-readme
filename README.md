@@ -18,7 +18,7 @@ To overcome this limitation, and help developers such as myself automate this te
 | Option | Description | Default |
 | --- | --- | --- |
 | `FILES` | list of files that should be compiled.  | `false`
-| `DELIMITER` | you can change the default **DELIMITER** if it causes issue with your data.  | `${{ }}`
+| `DELIMITER` | you can change the default **DELIMITER** if it causes issue with your data.  | `${{\ }}`
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## :writing_hand: Syntax 
@@ -30,18 +30,18 @@ To overcome this limitation, and help developers such as myself automate this te
         * Start : `<\!-- START include {filepath} -->`
         * END : `<\!-- END include {filepath} -->`
 ### Variables
-All Default vairables exposed by github actions runner can be accessed like `${{ GITHUB_ACTIONS }}` OR  `${{ GITHUB_ACTOR }}`
+All Default vairables exposed by github actions runner can be accessed like `${{\ GITHUB_ACTIONS }}` OR  `${{\ GITHUB_ACTOR }}`
 
 **Dynamic Readme Github Action** Uses [**Repository Meta - Github Action**](https://github.com/varunsridharan/action-repository-meta) which 
 exposes useful metadata as environment variable and those variables can be used as template tags.
 
 any variables exposed by **Repository Meta** can be accessed like below
 ```
-Repository Owner : ${{ env.REPOSITORY_OWNER }}
-Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
+Repository Owner : ${{\ env.REPOSITORY_OWNER }}
+Repository Full Name : ${{\ env.REPOSITORY_FULL_NAME }}
 ```
 
-> :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix `${{ env.VARIABLE_NAME }}`
+> :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix `${{\ env.VARIABLE_NAME }}`
 
 ### File Includes
 #### Source Options
@@ -131,7 +131,7 @@ jobs:
       - name: "💾  Github Repository Metadata"
         uses: varunsridharan/action-repository-meta@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{\ secrets.GITHUB_TOKEN }}
 
       - name: "💫  Dynamic Template Render"
         uses: varunsridharan/action-dynamic-readme@main
@@ -142,60 +142,36 @@ jobs:
             templates/file-includes/inline.md=output/file-includes/inline.md
             templates/file-includes/reusable-includes.md=output/file-includes/reusable-includes.md
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{\ secrets.GITHUB_TOKEN }}
 ```
 
 ---
 
-## 📝 Changelog
-All notable changes to this project will be documented in this file.
+<!-- START readme-templates/changelog.mustache -->
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+<!-- END readme-templates/changelog.mustache -->
 
-[Checkout CHANGELOG.md](/CHANGELOG.md)
 
-## 🤝 Contributing
-If you would like to help, please take a look at the list of [issues](issues/).
+<!-- START readme-templates/contributing.mustache -->
 
-## 💰 Sponsor
-[I][twitter] fell in love with open-source in 2013 and there has been no looking back since! You can read more about me [here][website].
-If you, or your company, use any of my projects or like what I’m doing, kindly consider backing me. I'm in this for the long run.
+<!-- END readme-templates/contributing.mustache -->
 
-- ☕ How about we get to know each other over coffee? Buy me a cup for just [**$9.99**][buymeacoffee]
-- ☕️☕️ How about buying me just 2 cups of coffee each month? You can do that for as little as [**$9.99**][buymeacoffee]
-- 🔰         We love bettering open-source projects. Support 1-hour of open-source maintenance for [**$24.99 one-time?**][paypal]
-- 🚀         Love open-source tools? Me too! How about supporting one hour of open-source development for just [**$49.99 one-time ?**][paypal]
+<!-- START readme-templates/license-and-conduct.mustache -->
 
-## 📜  License & Conduct
-- [**General Public License v3.0 license**](LICENSE) © [Varun Sridharan](website)
-- [Code of Conduct](code-of-conduct.md)
+<!-- END readme-templates/license-and-conduct.mustache -->
 
-## 📣 Feedback
-- ⭐ This repository if this project helped you! :wink:
-- Create An [🔧 Issue](issues/) if you need help / found a bug
+<!-- START readme-templates/feedback.mustache -->
 
-## Connect & Say 👋
-- **Follow** me on [👨‍💻 Github][github] and stay updated on free and open-source software
-- **Follow** me on [🐦 Twitter][twitter] to get updates on my latest open source projects
-- **Message** me on [📠 Telegram][telegram]
-- **Follow** my pet on [Instagram][sofythelabrador] for some _dog-tastic_ updates!
+<!-- END readme-templates/feedback.mustache -->
 
----
+<!-- START readme-templates/sponsor.mustache -->
 
-<p align="center">
-<i>Built With ♥ By <a href="https://sva.onl/twitter"  target="_blank" rel="noopener noreferrer">Varun Sridharan</a> <a href="https://en.wikipedia.org/wiki/India"><img src="https://cdn.svarun.dev/flag-india-flat.svg" width="20px"/></a> </i> <br/><br/>
-<img src="https://s.w.org/style/images/codeispoetry.png"/>
-</p>
+<!-- END readme-templates/sponsor.mustache -->
 
----
+<!-- START readme-templates/connect-and-say-hi.mustache -->
 
-<!-- Personl Links -->
-[paypal]: https://sva.onl/paypal
-[buymeacoffee]: https://sva.onl/buymeacoffee
-[sofythelabrador]: https://www.instagram.com/sofythelabrador/
-[github]: https://sva.onl/github/
-[twitter]: https://sva.onl/twitter/
-[telegram]: https://sva.onl/telegram/
-[email]: https://sva.onl/email
-[website]: https://sva.onl/website/
+<!-- END readme-templates/connect-and-say-hi.mustache -->
+
+<!-- START readme-templates/footer.mustache -->
+
+<!-- END readme-templates/footer.mustache -->
