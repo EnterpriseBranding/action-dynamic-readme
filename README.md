@@ -22,8 +22,7 @@ To overcome this limitation, and help developers such as myself automate this te
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## :writing_hand: Syntax 
-> To avoid rendering File Includes in this section.
-> we have used `\!`. make sure to use only `!` to render the file include.
+> :warning: To avoid rendering File Includes in this section. we have used `\!`. make sure to use only `!` to render the file include.
 * Variables : `${{\ VARIABLE_NAME }}`
 * File Includes
     * Inline : `<\!-- include {filepath} -->`
@@ -77,7 +76,7 @@ Reusable Includes :
 #### From Repository  Syntax 
 You can include any type of file from any repository. if you want to include from a **Private** Repository then you have to provide **Github Personal Access Token** Instead **Github Token** in action's workflow file
 
-> If branch is not specified then default branch will be cloned
+> :information_source: If branch is not specified then default branch will be cloned
 
 ##### Without Branch
 ```html
@@ -101,10 +100,11 @@ Reusable Includes :
 ```
 
 
-> **Inline includes** can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
+> :information_source: **Inline includes** can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
 >
-> **Reusable includes** & Inline Includes dose the same work. but this can come in handy when you are generating template & saving it in the same file it preserves include comment and will be parsed again when Re-generating the template & contents of that include will be updated
-
+> :information_source: **Reusable includes** & Inline Includes dose the same work. but this can come in handy when you are generating template & saving it in the same file it preserves include comment and will be parsed again when Re-generating the template & contents of that include will be updated
+>
+> :warning: To avoid rendering File Includes in this section. we have used `\!`. make sure to use only `!` to render the file include.
 
 ## 🚀 Example Workflow File
 
