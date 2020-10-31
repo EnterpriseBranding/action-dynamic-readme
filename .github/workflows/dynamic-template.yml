@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "💫  Update Dynamic Template"
-        uses: varunsridharan/action-dynamic-readme@main
+        uses: "./"
         with:
           GLOBAL_TEMPLATE_REPOSITORY: varunsridharan/varunsridharan
           files: |
