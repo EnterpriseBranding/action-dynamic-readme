@@ -5,6 +5,7 @@ $global_template_repository = gh_input( 'GLOBAL_TEMPLATE_REPOSITORY', false );
 
 require APP_PATH . 'vars.php';
 require APP_PATH . 'engine/mustache.php';
+require APP_PATH . 'class/class-markdown-handler.php';
 require APP_PATH . 'class/class-file-handler.php';
 require APP_PATH . 'class/class-repo-cloner.php';
 require APP_PATH . 'class/class-template-file-handler.php';

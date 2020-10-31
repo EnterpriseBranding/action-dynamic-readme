@@ -37,89 +37,8 @@ class Update_Template {
 	 */
 	public function extract_included_templates() {
 		$matches = array();
-
-		/**
-		 * @example
-		 * <!-- sponsor.md -->
-		 *
-		 * <!-- sponsor.md -->
-		 */ #preg_match_all( '/<!--(?P<templatefile>[\w\W]+)-->(?P<content>[\w\W]*)<!--\s?\1-->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
-
-		/**
-		 * @example
-		 * <!-- START sponsor.md -->
-		 * <!-- END sponsor.md -->
-		 */ #preg_match_all( '/<!-- START (?P<templatefile>[\w\W]+) -->(?P<content>[\w\W]*)<!-- END \1 -->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
-
-		/**
-		 * <!-- START sponsor.md -->
-		 * <!-- END sponsor.md -->
-		 *
-		 * OR
-		 *
-		 * <!-- start sponsor.md -->
-		 * <!-- end sponsor.md -->
-		 */ #preg_match_all( '/<!-- (?:START|start) (?P<templatefile>[\w\W]+) -->(?P<content>[\w\W]*)<!-- (?:END|end) \1 -->/m', $this->content, $matches, PREG_SET_ORDER, 0 );
-
-		/**
-		 * <!-- START sponsor.md -->
-		 * <!-- END sponsor.md -->
-		 *
-		 * OR
-		 *
-		 * <!-- start sponsor.md -->
-		 * <!-- end sponsor.md -->
-		 *
-		 * also provides start & end keys
-		 */ #preg_match_all( '/(?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \2 -->)/mi', $this->content, $matches, PREG_SET_ORDER, 0 );
-
-		/**
-		 * <!-- START sponsor.md -->
-		 * <!-- END sponsor.md -->
-		 *
-		 * OR
-		 *
-		 * <!-- start sponsor.md -->
-		 * <!-- end sponsor.md -->
-		 *
-		 * OR
-		 * <!-- include sponsor.md -->
-		 * also provides start & end keys
-		 */ #preg_match_all( '/(?:(?P<inline><!-- (?:include|INCLUDE) (?P<file>[\w\W].+) -->))|((?P<sec_start><!-- (?:START|start) (?P<file>[\w\W]+) -->)(?P<sec_content>[\w\W]*)(?P<sec_end><!-- (?:END|end) \5 -->))/miJ', $this->content, $matches, PREG_SET_ORDER, 0 );
-		/**
-		 * @example Test Content
-		 * <!-- include ./parts/license.md -->
-		 *
-		 * <!-- include templates/file-includes/parts/feedback.md -->
-		 *
-		 * <!-- include .github/workflows/dynamic-template.yml -->
-		 *
-		 * <!-- include octocat/Spoon-Knife@master/README.md -->
-		 *
-		 * <!-- include octocat/Spoon-Knife/README.md -->
-		 *
-		 * <!-- include sponsor.md -->
-		 *
-		 *
-		 * <!-- START ./parts/license.md -->
-		 *
-		 * <!-- END ./parts/license.md -->
-		 *
-		 * <!-- start templates/file-includes/parts/feedback.md -->
-		 *
-		 * <!-- END templates/file-includes/parts/feedback.md -->
-		 *
-		 * <!-- START .github/workflows/dynamic-template.yml -->
-		 * <!-- end .github/workflows/dynamic-template.yml -->
-		 *
-		 * <!-- start octocat/Spoon-Knife@master/README.md -->
-		 * <!-- end octocat/Spoon-Knife@master/README.md -->
-		 *
-		 * <!-- START sponsor.md --><!-- END sponsor.md -->
-		 *
-		 * <!-- START sponsor.md --><!-- END sponsor.md -->
-		 */
-		$re = '/(?P<inline><!--\s(?:INCLUDE|include)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)\s(?P<file>[\s\S]*?)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\5)\s(END|end)\s(\7)\s(\8)))/J';
+		#$re = '/(?P<inline><!--\s(?:INCLUDE|include)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)\s(?P<file>[\s\S]*?)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\5)\s(END|end)\s(\7)\s(\8)))/J';
+		$re = '/(?P<inline><!--\s(?:INCLUDE|include)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s-->)|((?P<sec_start>(<!--)\s(START|start)(?:\s(?:\[(?:(?P<markdown>\w.+):(?P<markdown_value>\w+)|(?P<markdown>\w.+))\])|)\s(?P<file>[\w\W].+)\s(-->))(\n|)(?P<sec_content>[\s\S]*?)(\n|)(?P<sec_end>(\8)\s(END|end)\s(\13)\s(\14)))/J';
 		preg_match_all( $re, $this->content, $matches, PREG_SET_ORDER, 0 );
 
 		/**
@@ -169,17 +88,18 @@ class Update_Template {
 			}
 			$template_content = new Update_Template( $contents, $template_file );
 			$template_content = $template_content->update();
+			$beforeafter      = Markdown_Handler::get( $template );
 			if ( false !== $template_content ) {
 				if ( isset( $template['inline'] ) && ! empty( $template['inline'] ) ) {
 					$str_find    = $template['inline'];
-					$str_replace = $template_content;
+					$str_replace = $beforeafter['before'] . $template_content . $beforeafter['after'];
 					$content     = $this->content;
 				} else {
 					$regex       = '/(' . preg_quote( $template['sec_start'], '/' ) . ')([\w\W]*)(' . preg_quote( $template['sec_end'], '/' ) . ')/';
 					$str_find    = 'PLACEHOLDER_REPLACE:' . rand( 1, 1000 );
 					$str_replace = <<<CONTENT
 {$template['sec_start']}
-$template_content
+{$beforeafter['before']}$template_content{$beforeafter['after']}
 {$template['sec_end']}
 CONTENT;
 					$content     = preg_replace( $regex, $str_find, $this->content );
