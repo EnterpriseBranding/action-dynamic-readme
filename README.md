@@ -45,8 +45,8 @@ Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
 
 ### File Includes
 #### Source Options
-* Relative Path : `template/file.md` --  
-* Absolute path : `./template/file.md` -- 
+* Relative Path : `template/file.md`
+* Absolute path : `./template/file.md`
 * From Repository : `{owner}/{repository}/{filepath}` OR `{owner}/{repository}@{branch}/{filepath}`
 
 #### Relative Path Syntax 
