@@ -27,10 +27,10 @@ To overcome this limitation, and help developers such as myself automate this te
 
 * Variables : `$‎{{ VARIABLE_NAME }}`
 * File Includes
-    * Inline : `<\!-- include {filepath} -->`
+    * Inline : `<‎!-- include {filepath} -->`
     * Reusable
-        * Start : `<\!-- START include {filepath} -->`
-        * END : `<\!-- END include {filepath} -->`
+        * Start : `<‎!-- START include {filepath} -->`
+        * END : `<‎!-- END include {filepath} -->`
 ### Variables
 All Default vairables exposed by github actions runner can be accessed like `$‎{{ GITHUB_ACTIONS }}` OR  `$‎{{ GITHUB_ACTOR }}`
 
@@ -55,24 +55,24 @@ Repository Full Name : $‎{{ env.REPOSITORY_FULL_NAME }}
 Files are always searched from repository root path
 ```html
 Inline Includes : 
-<\!-- include template/file.md -->
+<‎!-- include template/file.md -->
 
 Reusable Includes : 
-<\!-- START template/file.md -->
+<‎!-- START template/file.md -->
 
-<\!-- END template/file.md -->
+<‎!-- END template/file.md -->
 ```
 
 #### Absolute path  Syntax 
 Files are searched from current repository. This can come in handy when writing nested includesType a message
 ```html
 Inline Includes : 
-<\!-- include ./template/file.md -->
+<‎!-- include ./template/file.md -->
 
 Reusable Includes : 
-<\!-- START ./template/file.md -->
+<‎!-- START ./template/file.md -->
 
-<\!-- END ./template/file.md -->
+<‎!-- END ./template/file.md -->
 ```
 
 #### From Repository  Syntax 
@@ -82,22 +82,22 @@ You can include any type of file from any repository. If you want to include a f
 ##### Without Branch
 ```html
 Inline Includes : 
-<\!-- include octocat/Spoon-Knife/README.md -->
+<‎!-- include octocat/Spoon-Knife/README.md -->
 
 Reusable Includes : 
-<\!-- START octocat/Spoon-Knife/README.md -->
+<‎!-- START octocat/Spoon-Knife/README.md -->
 
-<\!-- END octocat/Spoon-Knife/README.md -->
+<‎!-- END octocat/Spoon-Knife/README.md -->
 ```
 ##### Custom Branch
 ```html
 Inline Includes : 
-<\!-- include octocat/Spoon-Knife/@master/README.md -->
+<‎!-- include octocat/Spoon-Knife/@master/README.md -->
 
 Reusable Includes : 
-<\!-- START octocat/Spoon-Knife/@master/README.md -->
+<‎!-- START octocat/Spoon-Knife/@master/README.md -->
 
-<\!-- END octocat/Spoon-Knife/@master/README.md -->
+<‎!-- END octocat/Spoon-Knife/@master/README.md -->
 ```
 
 
