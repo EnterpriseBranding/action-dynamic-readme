@@ -22,7 +22,7 @@ To overcome this limitation, and help developers such as myself automate this te
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## :writing_hand: Syntax 
-> :warning: To avoid rendering File Includes in this section. we have used `\!`. make sure to use only `!` to render the file include.
+> :warning: To avoid rendering File Includes in this section, we have used `\!`. Make sure to use only `!` to render the file include.
 * Variables : `${{\ VARIABLE_NAME }}`
 * File Includes
     * Inline : `<\!-- include {filepath} -->`
@@ -50,7 +50,7 @@ Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
 * From Repository : `{owner}/{repository}/{filepath}` OR `{owner}/{repository}@{branch}/{filepath}`
 
 #### Relative Path Syntax 
-Files are always search from repository root path
+Files are always searched from repository root path
 ```html
 Inline Includes : 
 <\!-- include template/file.md -->
@@ -62,7 +62,7 @@ Reusable Includes :
 ```
 
 #### Absolute path  Syntax 
-Files are search from current repository this can come in handy when writing with nested includes
+Files are searched from current repository. This can come in handy when writing nested includesType a message
 ```html
 Inline Includes : 
 <\!-- include ./template/file.md -->
@@ -74,8 +74,7 @@ Reusable Includes :
 ```
 
 #### From Repository  Syntax 
-You can include any type of file from any repository. if you want to include from a **Private** Repository then you have to provide **Github Personal Access Token** Instead **Github Token** in action's workflow file
-
+You can include any type of file from any repository. If you want to include a file from a **Private Repository**, you have to provide **Github Personal Access** Token INSTEAD OF **Github Token** in the action's workflow file.
 > :information_source: If branch is not specified then default branch will be cloned
 
 ##### Without Branch
@@ -100,11 +99,11 @@ Reusable Includes :
 ```
 
 
-> :information_source: **Inline includes** can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
+> :information_source: **Inline includes** can come in handy when you want to parse the data once and save it. It can also be used inside a nested include.
 >
-> :information_source: **Reusable includes** & Inline Includes dose the same work. but this can come in handy when you are generating template & saving it in the same file it preserves include comment and will be parsed again when Re-generating the template & contents of that include will be updated
+> :information_source: Even though **Reusable includes** and **Inline Includes** do the same work, they can come in handy when you are generating a template and saving it in the same file. It preserves the include comment which will be parsed again when re-generating the template, and the contents of the include will be updated accordingly.
 >
-> :warning: To avoid rendering File Includes in this section. we have used `\!`. make sure to use only `!` to render the file include.
+> :warning: To avoid rendering File Includes in this section, we have used `\!`. Make sure to use only `!` to render the file include.
 
 ---
 ### For live Demo Please Check [Demo Repository](https://github.com/varunsridharan/demo-dynamic-readme)
