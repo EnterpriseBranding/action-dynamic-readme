@@ -22,6 +22,8 @@ To overcome this limitation, and help developers such as myself automate this te
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## :writing_hand: Syntax 
+> To avoid rendering File Includes in this section.
+> we have used `\!`. make sure to use only `!` to render the file include.
 * Variables : `${{\ VARIABLE_NAME }}`
 * File Includes
     * Inline : `<\!-- include {filepath} -->`
