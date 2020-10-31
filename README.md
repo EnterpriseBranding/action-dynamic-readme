@@ -18,30 +18,30 @@ To overcome this limitation, and help developers such as myself automate this te
 | Option | Description | Default |
 | --- | --- | --- |
 | `FILES` | list of files that should be compiled.  | `false`
-| `DELIMITER` | you can change the default **DELIMITER** if it causes issue with your data.  | `${{  }}`
+| `DELIMITER` | you can change the default **DELIMITER** if it causes issue with your data.  | ``
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## :writing_hand: Syntax 
 > :warning: To avoid rendering File Includes in this section, we have used `\!`. Make sure to use only `!` to render the file include.
-* Variables : `${{ VARIABLE_NAME }}`
+* Variables : ``
 * File Includes
     * Inline : `<\!-- include {filepath} -->`
     * Reusable
         * Start : `<\!-- START include {filepath} -->`
         * END : `<\!-- END include {filepath} -->`
 ### Variables
-All Default vairables exposed by github actions runner can be accessed like `${{ GITHUB_ACTIONS }}` OR  `${{ GITHUB_ACTOR }}`
+All Default vairables exposed by github actions runner can be accessed like `true` OR  `varunsridharan`
 
 **Dynamic Readme Github Action** Uses [**Repository Meta - Github Action**](https://github.com/varunsridharan/action-repository-meta) which 
 exposes useful metadata as environment variable and those variables can be used as template tags.
 
 any variables exposed by **Repository Meta** can be accessed like below
 ```
-Repository Owner : ${{ env.REPOSITORY_OWNER }}
-Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
+Repository Owner : varunsridharan
+Repository Full Name : varunsridharan/action-dynamic-readme
 ```
 
-> :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix `${{ env.VARIABLE_NAME }}`
+> :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix ``
 
 ### File Includes
 #### Source Options
@@ -131,7 +131,7 @@ jobs:
       - name: "💾  Github Repository Metadata"
         uses: varunsridharan/action-repository-meta@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: 
 
       - name: "💫  Dynamic Template Render"
         uses: varunsridharan/action-dynamic-readme@main
@@ -142,7 +142,7 @@ jobs:
             templates/file-includes/inline.md=output/file-includes/inline.md
             templates/file-includes/reusable-includes.md=output/file-includes/reusable-includes.md
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: 
 ```
 
 ---
