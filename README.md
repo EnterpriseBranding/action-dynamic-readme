@@ -29,10 +29,9 @@ To overcome this limitation, and help developers such as myself automate this te
         * Start : `<\!-- START include {filepath} -->`
         * END : `<\!-- END include {filepath} -->`
 
-### Default Variables
+### Variables
 All Default vairables exposed by github actions runner can be accessed like `${{ GITHUB_ACTIONS }}` OR  `${{ GITHUB_ACTOR }}`
 
-### Repository Metadata
 **Dynamic Readme Github Action** Uses [**Repository Meta - Github Action**](https://github.com/varunsridharan/action-repository-meta) which 
 exposes useful metadata as environment variable and those variables can be used as template tags.
 
@@ -44,7 +43,7 @@ Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
 
 > :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix `${{ env.VARIABLE_NAME }}`
 
-#### Inline Includes
+### Inline Includes
 Inline includes can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
 
 ### Section Includes
