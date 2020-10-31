@@ -15,15 +15,46 @@ To overcome this limitation, and help developers such as myself automate this te
 
 
 ## ⚙️ Configuration
+| Option | Description | Default |
+| --- | --- | --- |
+| `FILES` | list of files that should be compiled.  | `false`
+| `DELIMITER` | you can change the default **DELIMITER** if it causes issue with your data.  | `${{ }}`
+| `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
 ## 🚀 Usage
 
-```php
-<?php
+```yaml
+name: Dynamic Template
 
-// Some Code Here
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-?>
+jobs:
+  update_templates:
+    name: "Update Templates"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥  Fetching Repository Contents"
+        uses: actions/checkout@main
+
+      - name: "💾  Github Repository Metadata"
+        uses: varunsridharan/action-repository-meta@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "💫  Dynamic Template Render"
+        uses: varunsridharan/action-dynamic-readme@main
+        with:
+          GLOBAL_TEMPLATE_REPOSITORY: {repository-owner}/{repository-name}
+          files: |
+            templates/variables/defaults.md=output/variables/defaults.md
+            templates/file-includes/inline.md=output/file-includes/inline.md
+            templates/file-includes/reusable-includes.md=output/file-includes/reusable-includes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ---
@@ -70,8 +101,6 @@ If you, or your company, use any of my projects or like what I’m doing, kindly
 </p>
 
 ---
-
-
 
 <!-- Personl Links -->
 [paypal]: https://sva.onl/paypal
