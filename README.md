@@ -21,7 +21,38 @@ To overcome this limitation, and help developers such as myself automate this te
 | `DELIMITER` | you can change the default **DELIMITER** if it causes issue with your data.  | `${{ }}`
 | `GLOBAL_TEMPLATE_REPOSITORY` | you can set a global repository template where all the files are stored. | `false`
 
-## 🚀 Usage
+## :writing_hand: Syntax 
+* Variables : `${{\ VARIABLE_NAME }}`
+* File Includes
+    * Inline : `<\!-- include {filepath} -->`
+    * Section
+        * Start : `<\!-- START include {filepath} -->`
+        * END : `<\!-- END include {filepath} -->`
+
+### Default Variables
+All Default vairables exposed by github actions runner can be accessed like `${{ GITHUB_ACTIONS }}` OR  `${{ GITHUB_ACTOR }}`
+
+### Repository Metadata
+**Dynamic Readme Github Action** Uses [**Repository Meta - Github Action**](https://github.com/varunsridharan/action-repository-meta) which 
+exposes useful metadata as environment variable and those variables can be used as template tags.
+
+any variables exposed by **Repository Meta** can be accessed like below
+```
+Repository Owner : ${{ env.REPOSITORY_OWNER }}
+Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
+```
+
+> :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix `${{ env.VARIABLE_NAME }}`
+
+#### Inline Includes
+Inline includes can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
+
+### Section Includes
+Inline Includes & Reusable includes dose the same work. but this can come in handy when you are generating template & saving it in the same file it preserves include comment and will be parsed again when Re-generating the template & contents of that include will be updated
+
+
+
+## 🚀 Example Workflow Files
 
 ```yaml
 name: Dynamic Template
