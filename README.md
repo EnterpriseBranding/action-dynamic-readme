@@ -27,10 +27,9 @@ To overcome this limitation, and help developers such as myself automate this te
 * Variables : `${{\ VARIABLE_NAME }}`
 * File Includes
     * Inline : `<\!-- include {filepath} -->`
-    * Section
+    * Reusable
         * Start : `<\!-- START include {filepath} -->`
         * END : `<\!-- END include {filepath} -->`
-
 ### Variables
 All Default vairables exposed by github actions runner can be accessed like `${{ GITHUB_ACTIONS }}` OR  `${{ GITHUB_ACTOR }}`
 
@@ -45,15 +44,69 @@ Repository Full Name : ${{ env.REPOSITORY_FULL_NAME }}
 
 > :information_source: **Note :** Any environment variable can be accessed just by using `env.` as prefix `${{ env.VARIABLE_NAME }}`
 
-### Inline Includes
-Inline includes can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
+### File Includes
+#### Source Options
+* Relative Path : `template/file.md` --  
+* Absolute path : `./template/file.md` -- 
+* From Repository : `{owner}/{repository}/{filepath}` OR `{owner}/{repository}@{branch}/{filepath}`
 
-### Section Includes
-Inline Includes & Reusable includes dose the same work. but this can come in handy when you are generating template & saving it in the same file it preserves include comment and will be parsed again when Re-generating the template & contents of that include will be updated
+#### Relative Path Syntax 
+Files are always search from repository root path
+```html
+Inline Includes : 
+<\!-- include template/file.md -->
+
+Reusable Includes : 
+<\!-- START template/file.md -->
+
+<\!-- END template/file.md -->
+```
+
+#### Absolute path  Syntax 
+Files are search from current repository this can come in handy when writing with nested includes
+```html
+Inline Includes : 
+<\!-- include ./template/file.md -->
+
+Reusable Includes : 
+<\!-- START ./template/file.md -->
+
+<\!-- END ./template/file.md -->
+```
+
+#### From Repository  Syntax 
+You can include any type of file from any repository. if you want to include from a **Private** Repository then you have to provide **Github Personal Access Token** Instead **Github Token** in action's workflow file
+
+> If branch is not specified then default branch will be cloned
+
+##### Without Branch
+```html
+Inline Includes : 
+<\!-- include octocat/Spoon-Knife/README.md -->
+
+Reusable Includes : 
+<\!-- START octocat/Spoon-Knife/README.md -->
+
+<\!-- END octocat/Spoon-Knife/README.md -->
+```
+##### Custom Branch
+```html
+Inline Includes : 
+<\!-- include octocat/Spoon-Knife/@master/README.md -->
+
+Reusable Includes : 
+<\!-- START octocat/Spoon-Knife/@master/README.md -->
+
+<\!-- END octocat/Spoon-Knife/@master/README.md -->
+```
 
 
+> **Inline includes** can come in handy when you want to parse the data once and save it. or can be used inside a nested includes
+>
+> **Reusable includes** & Inline Includes dose the same work. but this can come in handy when you are generating template & saving it in the same file it preserves include comment and will be parsed again when Re-generating the template & contents of that include will be updated
 
-## 🚀 Example Workflow Files
+
+## 🚀 Example Workflow File
 
 ```yaml
 name: Dynamic Template
